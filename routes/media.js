@@ -16,7 +16,20 @@ router.get("/",async(req, res)=>{
     status:"success",
     data: media
   })
-})
+});
+
+router.get("/:id", async (req, res)=>{
+  const id = req.params.id;
+  const media = await Media.findByPk(id);
+
+  if(!media){
+    return res.status(404).json({status:"error",message:"media detail not found"});
+  }
+  return res.json({
+    status:"success",
+    data:media
+  })
+});
 
 router.post('/', (req, res, next)=> {
   const image = req.body.image;
